@@ -1,3 +1,15 @@
+@import "tailwindcss";
+
+/* main colors */
+:root {
+  --primary-color: #0055ff;
+  --secondary-color: #ff7700;
+  --accent-color: #00cc88;
+  --text-color: #333333;
+  --background-color: #ffffff;
+}
+
+
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;

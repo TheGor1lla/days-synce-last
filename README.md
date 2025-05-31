@@ -1,14 +1,8 @@
 # days-synce-last
 
-This template should help get you started developing with Vue 3 in Vite.
+This project was inspired by a post on [Linkedin] written by Chris Stone.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
+It aims to visualize metrics by tracking when a noteworthy event happened last.
 
 ## Project Setup
 
@@ -27,3 +21,5 @@ npm run dev
 ```sh
 npm run build
 ```
+
+[Linkedin]: https://www.linkedin.com/posts/letsimprove_have-you-heard-of-dsl-metrics-they-can-activity-7236367812787675138-BvfA/

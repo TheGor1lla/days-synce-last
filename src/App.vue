@@ -10,6 +10,7 @@
   <div>
     <form class="einstellungen" @submit.prevent="onFormSubmit">
       <div>
+        <p>{{ $t('hello') }}</p>
         <h2>Wähle eine Option:</h2>
         <label>
           <input type="radio" value="hochzählen" v-model="selectedOption" />
@@ -21,41 +22,36 @@
         </label>
       </div>
       <div>
-        <input type="text" v-model="input" name="address" rows="5" cols="30" style="resize: none"/>
+        <input type="text" v-model="input" name="address" rows="5" cols="30" style="resize: none" />
       </div>
-      <button type="submit" label="Submit">
-        text
-      </button>
+      <button type="submit" label="Submit">text</button>
     </form>
   </div>
 </template>
 <script>
-import {ref} from 'vue'
-
-const text = ref()
-
 export default {
   data() {
     return {
-      text: "erstellte metriken:",
-      input: "null",
-      metrics: []
-    }
+      text: 'erstellte metriken:',
+      input: 'null',
+      metrics: [],
+    };
   },
   methods: {
     onFormSubmit() {
       let newMetric = {
-        value: this.input
-      }
-      this.metrics.push(newMetric)
-      this.input = null
-    }
-  }
-}
+        value: this.input,
+      };
+      this.metrics.push(newMetric);
+      this.input = null;
+    },
+  },
+};
 </script>
 
 <style scoped>
-.einstellungen, .box {
+.einstellungen,
+.box {
   border: 2px solid #ccc;
   border-radius: 8px;
   padding: 1rem;
