@@ -1,3 +1,35 @@
 {
-  "hello": "Hello"
+  "add": "Add",
+  "back": "Back",
+  "settings": "Settings",
+  "description": "Description",
+  "order": "Order",
+  "createMetric": "Create Metric",
+  "cancel": "Cancel",
+  "details": "Details",
+  "orVisit": "or visit",
+  "reset": "Reset",
+  "success": "Success",
+  "addMetric": {
+    "delete": "Delete",
+    "heading": "Create a new Metric",
+    "lastUpdated": "Last Updated",
+    "order": "Order",
+    "orderAscending": "Ascending",
+    "orderDescending": "Descending",
+    "save": "Save",
+    "thresholdFirst": "First Threshold",
+    "thresholdSecond": "Second Threshold"
+  },
+  "board": {
+    "create": "Create Board",
+    "delete": "Delete Board",
+    "deleteAlert": "Board name did not match. Deletion cancelled.",
+    "deletePrompt": "Type the boards name \"{boardName}\" to delete it.",
+    "deleteSuccess": "Board \"{boardName}\" deleted.",
+    "existing": "Your Boards",
+    "name": "Board Name",
+    "rename": "Rename Board",
+    "renamePrompt": "Enter new board name:"
+  }
 }

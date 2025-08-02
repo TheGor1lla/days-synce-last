@@ -1,3 +1,35 @@
 {
-  "hello": "Hallo"
+  "add": "Hinzufügen",
+  "back": "Zurück",
+  "settings": "Einstellungen",
+  "description": "Beschreibung",
+  "order": "Anordnung",
+  "createMetric": "Metrik erstellen",
+  "cancel": "Abbrechen",
+  "details": "Details",
+  "orVisit": "oder besuche",
+  "reset": "Zurückstetzen",
+  "success": "Erfolgreich",
+  "addMetric": {
+    "delete": "Löschen",
+    "heading": "Erstelle eine neue Metrik",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "order": "Richtung",
+    "orderAscending": "Aufsteigend",
+    "orderDescending": "Absteigend",
+    "save": "Speichern",
+    "thresholdFirst": "Erste Schwelle",
+    "thresholdSecond": "Zweite Schwelle"
+  },
+  "board": {
+    "create": "Board erstellen",
+    "delete": "Board löschen",
+    "deleteAlert": "Board Name stimmt nicht überein. Löschvorgang abgebrochen.",
+    "deletePrompt": "Gib den Namen des Boards \"{boardName}\" ein um es zu löschen.",
+    "deleteSuccess": "Board \"{boardName}\" gelöscht.",
+    "existing": "Deine Boards",
+    "name": "Name des Boards",
+    "rename": "Board umbenennen",
+    "renamePrompt": "Neuen Namen eingeben:"
+  }
 }
