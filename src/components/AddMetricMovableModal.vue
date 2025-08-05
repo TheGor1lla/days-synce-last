@@ -28,6 +28,8 @@
         </div>
       </div>
 
+      <ColorBar @order-changed="handleOrderChange" />
+
       <div class="modal-buttons">
         <BaseButton :label="$t('createMetric')" @click="saveChanges" type="submit" severity="success" class="modal-btn">
           <template #icon>
@@ -48,6 +50,7 @@
 <script setup>
 import { reactive } from 'vue';
 import BaseMovableModal from '@/components/BaseMovableModal.vue';
+import ColorBar from '@/components/ColorBar.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import SaveIcon from '@/assets/icons/SaveIcon.vue';
 import DeleteIcon from '@/assets/icons/DeleteIcon.vue';
@@ -67,6 +70,10 @@ const metric = reactive({
   secondThreshold: null,
   order: 'ascending',
 });
+
+const handleOrderChange = (order) => {
+  order.value = order;
+};
 
 const submitForm = () => {
   emit('metric-created', {
