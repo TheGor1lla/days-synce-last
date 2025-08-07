@@ -35,6 +35,8 @@
       </label>
     </div>
 
+    <SortControls @onSortMetrics="sortMetrics" @onToggleOrder="toggleOrder" />
+
     <AddMetricMovableModal
       @metric-created="handleMetricCreated"
       @add-metric-closed="closeAddMetric"
@@ -44,7 +46,7 @@
 
     <div class="metrics-container">
       <MetricCard
-        v-for="(metric, index) in metrics"
+        v-for="(metric, index) in sortedMetrics"
         :key="index"
         :metric="metric"
         @open-settings="handleOpenMetricSettings(metric, index)"
@@ -77,6 +79,7 @@ import ArrowLeftIcon from '@/assets/icons/ArrowLeftIcon.vue';
 import MetricSettingsMovableModal from '@/components/MetricSettingsMovableModal.vue';
 import BoardSettingsMovableModal from '@/components/BoardSettingsMovableModal.vue';
 import AddMetricMovableModal from '@/components/AddMetricMovableModal.vue';
+import SortControls from '@/components/SortControls.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -93,6 +96,47 @@ const selectedMetricCardIndex = ref(null);
 
 const isBoardSettingsVisible = ref(false);
 const isAddMetricVisible = ref(false);
+
+const sortBy = ref('description');
+const sortOrder = ref('asc');
+
+const toggleOrder = (order) => {
+  sortOrder.value = order;
+};
+
+// Method to update the sort field
+const sortMetrics = (field) => {
+  sortBy.value = field;
+
+  sortMetricsByField(); // Re-sort whenever the field changes
+};
+
+const sortMetricsByField = () => {
+  metrics.value.sort((a, b) => {
+    let aValue, bValue;
+
+    if (sortBy.value === 'description') {
+      aValue = a.description.toLowerCase();
+      bValue = b.description.toLowerCase();
+    } else if (sortBy.value === 'createdAt') {
+      aValue = a.createdAt;
+      bValue = b.createdAt;
+    } else if (sortBy.value === 'lastUpdated') {
+      aValue = a.lastUpdated;
+      bValue = b.lastUpdated;
+    }
+
+    if (sortOrder.value === 'asc') {
+      return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+    } else {
+      return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
+    }
+  });
+};
+
+const sortedMetrics = computed(() => {
+  return metrics.value;
+});
 
 onMounted(() => {
   const stored = localStorage.getItem(`board-${boardId}`);
