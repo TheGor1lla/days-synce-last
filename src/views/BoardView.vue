@@ -1,12 +1,13 @@
 <template>
-  <div class="test">
+  <div>
     <div class="board-header">
-      <div style="display: flex; align-items: center; cursor: pointer" @click="goBack">
+      <div class="board-back-nav" @click="goBack">
         <ArrowLeftIcon />
         <button class="nav-button">{{ $t('back') }}</button>
       </div>
 
       <h1 class="board-title">{{ boardName }}</h1>
+
       <GearIcon @click="openBoardSettings" />
     </div>
 
@@ -19,7 +20,7 @@
       @update:visible="closeBoardSettings"
     />
 
-    <BaseButton @click="openAddMetric" :label="$t('add')" severity="success" class="add-button">
+    <BaseButton @click="openAddMetric" :label="$t('createMetric')" severity="success" class="add-button">
       <template #icon>
         <NewAddIcon />
       </template>
@@ -42,7 +43,7 @@
       @update:visible="closeAddMetric"
     />
 
-    <div class="metrics-container">
+    <div v-if="metrics.length > 0" class="metrics-container">
       <MetricCard
         v-for="(metric, index) in metrics"
         :key="index"
@@ -203,6 +204,12 @@ const isDevMode = computed(() => {
   font-size: 1.8rem;
   font-weight: 600;
   text-align: center;
+}
+
+.board-back-nav {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .nav-button {

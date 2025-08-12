@@ -1,14 +1,14 @@
 <template>
   <div class="home">
     <div class="top">
-      <Image src="/images/dsl-logo.png" alt="logo" width="100px" />
+      <Image src="/images/dsl-logo.png" alt="logo" width="100px" height="68px" />
     </div>
 
     <Toast />
 
     <section class="create">
       <h1>{{ $t('board.create') }}</h1>
-      <hr />
+      <HorizontalDivider />
       <InputText
         autofocus="true"
         v-model="newBoardName"
@@ -27,7 +27,7 @@
       <h1 class="visit">{{ $t('orVisit') }}</h1>
       <section class="list">
         <h1>{{ $t('board.existing') }}</h1>
-        <hr />
+        <HorizontalDivider />
         <ul>
           <li v-for="board in boards" :key="board.id">
             <router-link :to="`/board/${board.id}`">{{ board.name }}</router-link>
@@ -50,6 +50,7 @@ import InputText from 'primevue/inputtext';
 import Image from 'primevue/image';
 import NewAddIcon from '@/assets/icons/NewAddIcon.vue';
 import Toast from 'primevue/toast';
+import HorizontalDivider from '@/components/HorizontalDivider.vue';
 
 const { t } = useI18n();
 const toast = useToast();
@@ -100,12 +101,6 @@ const showDeletionSuccessToast = (boardName) => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-hr {
-  border-top: 2px solid #919191;
-  margin-bottom: 1rem;
-  opacity: 50%;
 }
 
 .visit {

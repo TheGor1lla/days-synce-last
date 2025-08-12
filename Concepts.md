@@ -5,7 +5,7 @@
 ✔️ Use Toasts for Deletion messages  
 ❌ Database  
 ❌ Auth
-❌ fix image links
+✔️ fix image links
 ❌ Use PrimeVues Prompts
 
 ---
