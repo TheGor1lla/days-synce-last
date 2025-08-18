@@ -78,12 +78,13 @@ import ArrowLeftIcon from '@/assets/icons/ArrowLeftIcon.vue';
 import MetricSettingsMovableModal from '@/components/MetricSettingsMovableModal.vue';
 import BoardSettingsMovableModal from '@/components/BoardSettingsMovableModal.vue';
 import AddMetricMovableModal from '@/components/AddMetricMovableModal.vue';
+import * as boardCalls from '@/composables/boardCalls.js';
 
 const route = useRoute();
 const router = useRouter();
 
 const boardId = route.params.id;
-const boardName = ref('Board');
+const boardName = ref('');
 const timeMode = ref('days');
 
 const metrics = ref([]);
@@ -95,14 +96,26 @@ const selectedMetricCardIndex = ref(null);
 const isBoardSettingsVisible = ref(false);
 const isAddMetricVisible = ref(false);
 
-onMounted(() => {
-  const stored = localStorage.getItem(`board-${boardId}`);
-  metrics.value = stored ? JSON.parse(stored) : [];
-
-  const boards = JSON.parse(localStorage.getItem('boards') || '[]');
-  const board = boards.find((b) => b.id === boardId);
-  boardName.value = board ? board.name : 'Unnamed Board';
+onMounted(async () => {
+  await router.isReady();
+  const data = await boardCalls.getBoard(boardId);
+  boardName.value = data.data.name;
 });
+
+watch(
+  () => route.params.boardId,
+  async (id) => {
+    if (!id) return;
+
+    const board = await boardCalls.getBoard(id);
+    console.log('board');
+    console.log(board);
+
+    // assuming metrics is derived from board_config
+    metrics.value = board.board_config;
+  },
+  { immediate: true },
+);
 
 watch(
   metrics,
@@ -160,22 +173,21 @@ const goBack = () => {
 };
 
 const handleBoardRenamed = (newBoardName) => {
-  const boards = JSON.parse(localStorage.getItem('boards') || '[]');
-  const board = boards.find((b) => b.id === boardId);
-  if (board) {
-    board.name = newBoardName;
-    localStorage.setItem('boards', JSON.stringify(boards));
-    boardName.value = newBoardName;
-  }
+  boardCalls.putNewBoardName(boardId, newBoardName);
+  boardName.value = newBoardName;
   closeBoardSettings();
 };
 
-const handleBoardDeleted = () => {
-  const boards = JSON.parse(localStorage.getItem('boards') || '[]');
-  const updatedBoards = boards.filter((b) => b.id !== boardId);
-  localStorage.setItem('boards', JSON.stringify(updatedBoards));
-  localStorage.removeItem(`board-${boardId}`);
-  router.push({ path: '/', query: { deleted: boardName.value } });
+const handleBoardDeleted = async () => {
+  try {
+    await boardCalls.deleteBoard(boardId);
+    router.push({
+      path: '/',
+      query: { deleted: boardName.value },
+    });
+  } catch (error) {
+    console.error('Failed to delete board', error);
+  }
 };
 
 const isDevMode = computed(() => {

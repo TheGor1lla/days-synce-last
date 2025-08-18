@@ -13,6 +13,8 @@ npm install
 ### Compile and Hot-Reload for Development
 
 ```sh
+docker compose up -d
+npm run dev-server
 npm run dev
 ```
 

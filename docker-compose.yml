@@ -1,0 +1,15 @@
+services:
+  postgres:
+    container_name: dsl-database
+    image: postgres:17.6
+    environment:
+      POSTGRES_DB: dsl
+      POSTGRES_USER: dsl
+      POSTGRES_PASSWORD: dsl
+    ports:
+      - "5435:5432"
+    volumes:
+      - dsl-db:/var/lib/postgresql/data
+
+volumes:
+  dsl-db:

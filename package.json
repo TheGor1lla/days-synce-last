@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "docker-up": "docker compose up -d",
+    "docker-down": "docker compose down",
+    "dev-server": "node --watch server/server.js",
     "build": "vite build",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
@@ -14,9 +17,12 @@
   },
   "dependencies": {
     "@primeuix/themes": "^1.2.1",
+    "axios": "^1.11.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "pg-promise": "^12.3.0",
     "primevue": "^4.3.6",
     "tailwindcss-primeui": "^0.6.1",
-    "uuid": "^11.1.0",
     "vue": "^3.5.13",
     "vue-i18n": "^11.1.10",
     "vue-router": "^4.5.1"

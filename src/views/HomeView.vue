@@ -43,7 +43,6 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
-import { v4 as uuid } from 'uuid';
 
 import BaseButton from '@/components/BaseButton.vue';
 import InputText from 'primevue/inputtext';
@@ -51,6 +50,7 @@ import Image from 'primevue/image';
 import NewAddIcon from '@/assets/icons/NewAddIcon.vue';
 import Toast from 'primevue/toast';
 import HorizontalDivider from '@/components/HorizontalDivider.vue';
+import * as boardCalls from '@/composables/boardCalls.js';
 
 const { t } = useI18n();
 const toast = useToast();
@@ -59,10 +59,10 @@ const router = useRouter();
 const newBoardName = ref('');
 const boards = ref([]);
 
-onMounted(() => {
-  const stored = localStorage.getItem('boards');
-  boards.value = stored ? JSON.parse(stored) : [];
-
+onMounted(async () => {
+  const boardData = await boardCalls.getAllBoards();
+  boards.value = boardData.data;
+  console.log(boards.value);
   if (route.query.deleted) {
     const boardName = route.query.deleted;
     showDeletionSuccessToast(boardName);
@@ -73,16 +73,22 @@ onMounted(() => {
   }
 });
 
-const createBoard = () => {
-  if (!newBoardName.value.trim()) return;
+const createBoard = async () => {
+  const boardName = newBoardName.value.trim();
+  if (!boardName) return;
 
-  const id = uuid();
-  const board = { id, name: newBoardName.value.trim() };
-  boards.value.push(board);
-  localStorage.setItem('boards', JSON.stringify(boards.value));
+  const boardData = {
+    name: boardName,
+  };
 
-  newBoardName.value = '';
-  router.push(`/board/${id}`);
+  const result = await boardCalls.createBoard(boardData);
+
+  if (result && result.error) {
+    console.log('Error:', result.message);
+  } else {
+    console.log('Board created:', result);
+    await router.push(`/board/${result.id}`);
+  }
 };
 
 const showDeletionSuccessToast = (boardName) => {
